@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { saveGame, fetchGame, updateGame } from './actions';
 import { withRouter } from 'react-router-dom';
@@ -23,27 +22,17 @@ class GameFormPage extends React.Component {
           this.setState({ redirect: true });
           this.props.history.push('/games');
         })
-        // .catch((err) => 
-        //   err.response.json().then(({ errors }) =>
-        //     this.setState({ errors, loading: false})));
     } else {
       return this.props.saveGame({ title, cover })
         .then(() => {
           this.setState({ redirect: true });
           this.props.history.push('/games');
         })
-        // .catch((err) => 
-        //   err.response.json().then(({ errors }) =>
-        //     this.setState({ errors, loading: false})));
     }
   }
 
   render() {
-    // if (this.state.redirect) {
-    //   this.props.history.push('/games');
-    // } else {
       return <GameForm game={this.props.game} saveGame={this.saveGame} />
-    // }
   }
 }
 

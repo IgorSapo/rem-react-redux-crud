@@ -1,8 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { saveGame, fetchGame, updateGame } from './actions';
-// import { withRouter } from 'react-router-dom';
 
 class GameForm extends React.Component {
   state = {
@@ -11,7 +7,6 @@ class GameForm extends React.Component {
     cover: this.props.game ? this.props.game.cover : '',
     errors: {},
     loading: false
-    // done: false
   };
 
   componentWillReceiveProps = nextProps => {
@@ -21,12 +16,6 @@ class GameForm extends React.Component {
       cover: nextProps.game.cover,
     });
   }
-
-  // componentDidMount = () => {
-  //   if (this.props.match.params._id) {
-  //     this.props.fetchGame(this.props.match.params._id);
-  //   }
-  // };
 
   handleChange = e => {
     if(!!this.state.errors[e.target.name]) {
@@ -66,25 +55,6 @@ class GameForm extends React.Component {
               this.setState({ errors, loading: false}))
           }
         );
-      // if (_id) {
-      //   this.props.updateGame({ _id, title, cover })
-      //     .then(() => {
-      //       this.setState({ done: true });
-      //       this.props.history.push('/games');
-      //     })
-      //     .catch((err) => 
-      //       err.response.json().then(({ errors }) =>
-      //         this.setState({ errors, loading: false})));
-      // } else {
-      //   this.props.saveGame({ title, cover })
-      //     .then(() => {
-      //       this.setState({ done: true });
-      //       this.props.history.push('/games');
-      //     })
-      //     .catch((err) => 
-      //       err.response.json().then(({ errors }) =>
-      //         this.setState({ errors, loading: false})));
-      // }
     }
   }
 
