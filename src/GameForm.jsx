@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { saveGame } from './actions';
+import { withRouter } from 'react-router-dom';
 
 class GameForm extends React.Component {
   state = {
     title: '',
     cover: '',
-    errors: {}
+    errors: {},
+    loading: false,
+    done: false
   };
 
   handleChange = e => {
@@ -31,12 +36,32 @@ class GameForm extends React.Component {
     if (this.state.title === '') errors.title = "Can't be empty";
     if (this.state.cover === '') errors.cover = "Can't be empty";
     this.setState({ errors });
+    const isValid = Object.keys(errors).length === 0;
+
+    if (isValid) {
+      const { title, cover } = this.state;
+      this.setState({ loading: true });
+      this.props.saveGame({
+        title,
+        cover
+      }).then(() => {
+        this.setState({ done: true });
+        this.props.history.push('/games');
+      })
+        .catch((err) => err.response.json().then(({ errors }) => this.setState({ errors, loading: false})));
+    }
   }
 
   render() {
     return (
-      <form action="" onSubmit={this.handleSubmit} className="ui form">
+      <form
+        className={`ui form ${ this.state.loading ? 'loading' : ''}`}
+        onSubmit={this.handleSubmit}>
         <h2>Add new game</h2>
+        { !!this.state.errors.global &&
+          <div className="ui negative message">
+            <p>{this.state.errors.global}</p>
+          </div>}
         <div className={`field ${!!this.state.errors.title ? 'error' : ''}`}>
           <label htmlFor="title">Title</label>
           <input
@@ -74,4 +99,4 @@ class GameForm extends React.Component {
   }
 }
 
-export default GameForm;
+export default withRouter(connect(null, { saveGame })(GameForm));
