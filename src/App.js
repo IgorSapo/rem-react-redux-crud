@@ -1,21 +1,39 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Link, Route } from 'react-router-dom';
-import GamesPage from './GamesPage.jsx';
+import { NavLink, Route } from 'react-router-dom';
+import GamesPage from './GamesPage';
+import GameForm from './GameForm';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className="ui container">
+        <div className="ui three item menu">
+          <NavLink
+            to='/'
+            className="item"
+            activeClassName='active'
+            exact>
+            Home
+          </NavLink>
+          <NavLink
+            to='/games'
+            className="item"
+            activeClassName='active'
+            exact>
+            Games
+          </NavLink>
+          <NavLink
+            to='/games/new'
+            className="item"
+            activeClassName='active'
+            exact>
+            Add new game
+          </NavLink>
         </div>
-        <p className="App-intro">
-          <Link to='/games'>Games</Link>
-        </p>
-        <Route path='/games' component={GamesPage} />
+        <Route exact path='/games' component={GamesPage} />
+        <Route exact path='/games/new' component={GameForm} />
       </div>
     );
   }
