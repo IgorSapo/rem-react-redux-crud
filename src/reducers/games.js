@@ -1,4 +1,4 @@
-import { SET_GAMES, ADD_GAME, GAME_FETCHED } from '../actions';
+import { SET_GAMES, ADD_GAME, GAME_FETCHED, GAME_UPDATED } from '../actions';
 
 const games = (state = [], action = {}) => {
   switch(action.type) {
@@ -13,6 +13,8 @@ const games = (state = [], action = {}) => {
       } else {
         return state.concat(action.game);
       }
+    case GAME_UPDATED:
+      return state.map(item => (item._id === action.game._id ? action.game : item));
     default:
       return state;
   }

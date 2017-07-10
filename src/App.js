@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { NavLink, Route } from 'react-router-dom';
 import GamesPage from './GamesPage';
-import GameForm from './GameForm';
+import GameFormPage from './GameFormPage';
 
 class App extends Component {
   render() {
@@ -33,8 +33,8 @@ class App extends Component {
           </NavLink>
         </div>
         <Route exact path='/games' component={GamesPage} />
-        <Route exact path='/games/new' component={GameForm} />
-        <Route path='/game/:_id' component={GameForm} />
+        <Route exact path='/games/new' component={GameFormPage} />
+        <Route path='/game/:_id' component={GameFormPage} />
       </div>
     );
   }
