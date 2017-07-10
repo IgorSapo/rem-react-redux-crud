@@ -10,6 +10,7 @@ const handleResponse = response => {
 
 export const SET_GAMES = 'SET_GAMES';
 export const ADD_GAME = 'ADD_GAME';
+export const GAME_FETCHED = 'GAME_FETCHED';
 
 export const setGames = games => ({
   type: SET_GAMES,
@@ -19,7 +20,12 @@ export const setGames = games => ({
 export const addGame = game => ({
   type: ADD_GAME,
   game
-})
+});
+
+export const gameFetched = game => ({
+  type: GAME_FETCHED,
+  game
+});
 
 export const fetchGames = () => dispatch =>
   fetch('/api/games')
@@ -38,3 +44,8 @@ export const saveGame = data => dispatch =>
     }
   ).then(handleResponse)
    .then(data => dispatch(addGame(data.game)));
+
+export const fetchGame = id => dispatch =>
+  fetch(`/api/games/${id}`)
+    .then(res => res.json())
+    .then(data => dispatch(gameFetched(data.game)));
