@@ -15,11 +15,13 @@ const validate = data => {
 };
 
 mongodb.MongoClient.connect(dbUrl, (err, db) => {
-  app.get('/api/games', (req, res) => {
-    db.collection('games').find({}).toArray((err, games) => {
-      res.json({ games });
-    })
-  });
+  app.get('/api/games', (req, res) =>
+    db.collection('games')
+      .find({})
+      .toArray((err, games) => {
+        res.json({ games });
+      })
+  );
 
   app.post('/api/games', (req, res) => {
     const { errors, isValid } = validate(req.body);
