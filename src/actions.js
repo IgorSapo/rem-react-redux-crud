@@ -12,6 +12,7 @@ export const SET_GAMES = 'SET_GAMES';
 export const ADD_GAME = 'ADD_GAME';
 export const GAME_FETCHED = 'GAME_FETCHED';
 export const GAME_UPDATED = 'GAME_UPDATED';
+export const GAME_DELETED = 'GAME_DELETED';
 
 export const setGames = games => ({
   type: SET_GAMES,
@@ -31,7 +32,12 @@ export const gameFetched = game => ({
 export const gameUpdated = game => ({
   type: GAME_UPDATED,
   game
-})
+});
+
+export const gameDeleted = id => ({
+  type: GAME_DELETED,
+  id
+});
 
 export const fetchGames = () => dispatch =>
   fetch('/api/games')
@@ -62,3 +68,13 @@ export const updateGame = data => dispatch =>
     }
   }).then(handleResponse)
     .then(data => dispatch(gameUpdated(data.game)));
+
+export const deleteGame = id => dispatch => {
+  fetch(`/api/games/${id}`, {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(handleResponse)
+    .then(data => dispatch(gameDeleted(id)))
+}

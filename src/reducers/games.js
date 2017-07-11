@@ -1,4 +1,4 @@
-import { SET_GAMES, ADD_GAME, GAME_FETCHED, GAME_UPDATED } from '../actions';
+import { SET_GAMES, ADD_GAME, GAME_FETCHED, GAME_UPDATED, GAME_DELETED } from '../actions';
 
 const games = (state = [], action = {}) => {
   switch(action.type) {
@@ -15,6 +15,8 @@ const games = (state = [], action = {}) => {
       }
     case GAME_UPDATED:
       return state.map(item => (item._id === action.game._id ? action.game : item));
+    case GAME_DELETED:
+      return state.filter(item => item._id !== action.id);
     default:
       return state;
   }

@@ -71,6 +71,20 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
       )
   });
 
+  app.delete('/api/games/:_id', (req, res) => {
+    db.collection('games')
+      .deleteOne( // deleteOne parameters here are quiery object and callback function
+        { _id: new mongodb.ObjectId(req.params._id)},
+        (err, result) => {
+          if (err) {
+            res.status(500).json({ errors: { global: err }});
+          } else {
+            res.json({});
+          }
+        }
+      )
+  });
+
   app.use((req, res) => {
     res.status(404).json({
       errors: {
